@@ -1,6 +1,6 @@
 package minesweeper;
 
-public abstract class NumberTile extends Tiles {
+public class NumberTile extends Tiles {
     private final int adjacentBombs;
 
     protected NumberTile(int adjacentBombs){

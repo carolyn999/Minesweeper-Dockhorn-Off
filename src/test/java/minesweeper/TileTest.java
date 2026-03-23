@@ -2,7 +2,16 @@ package minesweeper;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TileTest {
+
+    @Test
+    public void bombTileIsBomb(){
+        Tile tile = new BombTile();
+        assertTrue(tile.isBomb());
+    }
+
     @Test
     public void bombLoseTest() {
         //bomb goes off and player loses
