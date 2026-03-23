@@ -1,4 +1,4 @@
 package minesweeper;
 
-public class Bomb {
+public class Map {
 }
