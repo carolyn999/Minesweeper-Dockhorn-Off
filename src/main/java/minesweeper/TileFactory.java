@@ -1,4 +1,4 @@
 package minesweeper;
 
-public interface TileFactory {
+public class TileFactory {
 }
