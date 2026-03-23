@@ -10,10 +10,10 @@ Minesweeper project for object-oriented programming.
   - The Observer pattern will be used so the game state/board can notify objects when a tile changes its state. For example, when a tile is revealed, triggers a bomb, or is flagged, observers such as the game/player will be notified and updated.
 
 - Builder Pattern
-  - We will use the Builder Pattern to construct complex maps of tiles for the game to be played in.  
+  - We will use the Builder Pattern to construct complex maps of tiles for the game to be played in. For example, it can create a board step by step by setting the number of rows, columns, adjacency patterns, and bomb locations without generating too many constructors. We're using the builder pattern to prevent having large, confusing constructor.  
 
 - Factory Pattern
-  - We will use the Factory pattern to create multiple types of tiles instead of directly instantiating each file type.
+  - We will use the Factory pattern to create multiple types of tiles instead of directly instantiating each file type. For example, the factory can decide whether to 
 
 # Foundational Classes
 
