@@ -16,6 +16,6 @@ public class NormalAdjacencyTest {
                 .placeBomb(2,0)
                 .build();
 
-        assertEquals(3,map.getTile(1,1).countAdjacentBombs());
+        assertEquals(3,map.getTile(1,1).getTileNumber());
     }
 }
