@@ -17,6 +17,9 @@ public abstract class Tile{
                 revealedTile = true;
             }
         }
+        public abstract boolean isBomb();
 
-    public abstract boolean isBomb();
+        public int  getTileNumber(){
+            return 0;
+        }
 }
