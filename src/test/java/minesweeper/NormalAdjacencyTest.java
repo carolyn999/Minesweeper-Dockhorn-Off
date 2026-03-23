@@ -8,7 +8,8 @@ public class NormalAdjacencyTest {
     @Test
     public void normalAdjacencyPatternsTest(){
         //creates map with normal adjacency pattern
-        Map map = Map.getBuilder(new TileFactory("Normal"))
+        Map map = Map.getBuilder(new TileFactory())
+                .useAdjacencyPattern("Normal")
                 .create3x3Grid()
                 .placeBomb(0,1)
                 .placeBomb(1,2)

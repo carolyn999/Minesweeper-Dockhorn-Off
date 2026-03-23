@@ -1,4 +1,11 @@
 package minesweeper;
 
-public class Map {
+public class Map
+{
+    private Map(){}
+
+    public static class MapBuilder
+    {
+
+    }
 }
