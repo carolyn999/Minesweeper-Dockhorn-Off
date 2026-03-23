@@ -1,4 +1,27 @@
 package minesweeper;
 
-public class Tiles {
+public abstract class Tiles{
+    private boolean revealedTile;
+    private boolean flaggedTile;
+
+    public boolean isRevealedTile(){
+        return revealedTile;
+    }
+
+    public boolean isFlaggedTile(){
+        return flaggedTile;
+    }
+
+    public void revealTile(){
+        if (!flaggedTile){
+            revealedTile = true;
+        }
+    }
+
+    public abstract boolean isBomb();
+
 }
+
+
+
+
