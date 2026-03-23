@@ -13,7 +13,7 @@ Minesweeper project for object-oriented programming.
   - We will use the Builder Pattern to construct complex maps of tiles for the game to be played in. For example, it can create a board step by step by setting the number of rows, columns, adjacency patterns, and bomb locations without generating too many constructors. We're using the builder pattern to prevent having large, confusing constructor.  
 
 - Factory Pattern
-  - We will use the Factory pattern to create multiple types of tiles instead of directly instantiating each file type. For example, the factory can decide whether to 
+  - We will use the Factory pattern to create multiple types of tiles instead of directly creating each object. Depending on the location and bomb layout, the factory can either return a BombTile or a NumberTile. This keeps object creation in one place and makes the code easier to maintain/expand.
 
 # Foundational Classes
 
