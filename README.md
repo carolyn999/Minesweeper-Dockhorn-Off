@@ -1,15 +1,19 @@
 # Minesweeper-Dockhorn-Off
-Minesweeper project for object oriented programming. 
+Carolyn Dockhorn, Kristin Off
+
+Minesweeper project for object-oriented programming. 
+
 
 # Design Patterns
 
 - Observer Pattern
-- 
+  - The Observer pattern will be used so the game state/board can notify objects when a tile changes its state. For example, when a tile is revealed, triggers a bomb, or is flagged, observers such as the game/player will be notified and updated.
 
 - Builder Pattern
+  - The Builder pattern allows us to  
 
 - Factory Pattern
-
+  - We will use the Factory pattern to create multiple types of tiles instead of directly instantiating each file type.
 
 # Foundational Classes
 
