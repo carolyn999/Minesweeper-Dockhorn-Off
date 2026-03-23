@@ -18,18 +18,17 @@ public abstract class Tile{
                 revealedTile = true;
             }
         }
+        public abstract boolean isBomb();
 
         public int  getTileNumber(){
             return 0;
         }
 
-    public boolean isBomb()
-    {
-        return false;
-    }
-
-    public boolean isNumberTile()
-    {
-        return false;
-    }
+        @Override
+        public Tile createTile(boolean isBomb, int adjacentBombs){
+            if (isBomb){
+                return new BombTile();
+            }
+            return new NumberTile(adjacentBombs);
+        }
 }

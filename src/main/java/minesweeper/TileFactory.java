@@ -1,4 +1,5 @@
 package minesweeper;
 
-public class TileFactory {
+public interface TileFactory {
+    Tile createTile(boolean isBomb, int adjacentBombs);
 }

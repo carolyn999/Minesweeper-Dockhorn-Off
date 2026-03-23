@@ -3,7 +3,7 @@ package minesweeper;
 public class NumberTile extends Tile {
     private final int adjacentBombs;
 
-    protected NumberTile(int adjacentBombs){
+    public NumberTile(int adjacentBombs){
         this.adjacentBombs = adjacentBombs;
     }
 
