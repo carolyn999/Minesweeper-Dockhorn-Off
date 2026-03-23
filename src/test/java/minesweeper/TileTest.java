@@ -2,7 +2,7 @@ package minesweeper;
 
 import org.junit.jupiter.api.Test;
 
-public class TilesTest {
+public class TileTest {
     @Test
     public void bombLoseTest() {
         //bomb goes off and player loses
