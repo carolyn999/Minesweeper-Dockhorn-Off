@@ -20,6 +20,9 @@ public class TileTest {
     @Test
     public void numberTileTest(){
         //when clicking a free tile, a number shows up with the adjacent bombs
+        NumberTile tile = new NumberTile(2);
+        assertFalse(tile.isBomb());
+        assertEquals(2, tile.getTileNumber);
     }
 
 

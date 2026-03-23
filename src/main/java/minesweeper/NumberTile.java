@@ -11,4 +11,9 @@ public class NumberTile extends Tiles {
     public boolean isBomb(){
         return false;
     }
+
+    @Override
+    public int getTileNumber(){
+        return adjacentBombs;
+    }
 }
