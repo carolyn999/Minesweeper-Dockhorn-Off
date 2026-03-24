@@ -3,7 +3,6 @@ Carolyn Dockhorn, Kristin Off
 
 Minesweeper project for object-oriented programming. 
 
-
 # Design Patterns
 
 - Observer Pattern
