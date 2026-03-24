@@ -1,7 +1,7 @@
 package minesweeper;
 
 public interface TilesObserver {
-
-    void onGameWon();
-    void onGameOver();
+    // Update observers every time a tile is revealed or flagged and at end of game.
+    // Maybe do singleton eventBus like Polymorphia?
+    void update();
 }
