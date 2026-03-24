@@ -8,11 +8,6 @@ public class NumberTile extends Tile {
     }
 
     @Override
-    public boolean isBomb(){
-        return false;
-    }
-
-    @Override
     public int getTileNumber(){
         return adjacentBombs;
     }
