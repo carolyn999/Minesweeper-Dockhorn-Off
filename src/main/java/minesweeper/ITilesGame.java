@@ -1,4 +1,7 @@
 package minesweeper;
 
-public interface ITilesGame {
+public interface ITilesGame
+{
+    void attach();
+    void detach();
 }

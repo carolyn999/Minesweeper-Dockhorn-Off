@@ -11,7 +11,7 @@ public class Map
     private final AdjacencyPattern adjacencyPattern;
     private final List<TilesObserver> observers = new ArrayList<>();
 
-    public Map(int rows, int cols, Tile[][] tiles, AdjacencyPattern adjacencyPattern){
+    private Map(int rows, int cols, Tile[][] tiles, AdjacencyPattern adjacencyPattern){
         this.rows = rows;
         this.cols = cols;
         this.tiles = tiles;
