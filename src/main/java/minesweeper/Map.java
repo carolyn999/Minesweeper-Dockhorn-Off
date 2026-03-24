@@ -46,12 +46,6 @@ public class Map
         observers.remove(observer);
     }
 
-    private void notifyGameWon(){
-        for (TilesObserver observer : observers){
-            observer.onGameWon();
-        }
-    }
-
     //need to implement notifyObservers & more
 
     public static class MapBuilder
