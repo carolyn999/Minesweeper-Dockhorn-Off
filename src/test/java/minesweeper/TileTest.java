@@ -13,11 +13,6 @@ public class TileTest {
     }
 
     @Test
-    public void bombLoseTest() {
-        //bomb goes off and player loses
-    }
-
-    @Test
     public void numberTileTest(){
         //when clicking a free tile, a number shows up on neighboring tiles with the adjacent bombs
         NumberTile tile = new NumberTile(2);
