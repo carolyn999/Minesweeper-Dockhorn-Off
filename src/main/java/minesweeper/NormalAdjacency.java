@@ -1,12 +1,10 @@
 package minesweeper;
 
-public class NormalAdjacency implements AdjacencyPattern
+public class NormalAdjacency extends AdjacencyPattern
 {
-    private Map map;
-
     public NormalAdjacency(Map map)
     {
-        this.map = map;
+        super(map);
     }
 
     @Override
