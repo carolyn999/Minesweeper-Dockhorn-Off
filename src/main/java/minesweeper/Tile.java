@@ -33,12 +33,4 @@ public abstract class Tile{
         public int  getTileNumber(){
             return tileNumber;
         }
-
-        @Override
-        public Tile createTile(boolean isBomb, int adjacentBombs){
-            if (isBomb){
-                return new BombTile();
-            }
-            return new NumberTile(adjacentBombs);
-        }
 }

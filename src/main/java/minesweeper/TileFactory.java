@@ -1,5 +1,15 @@
 package minesweeper;
 
-public interface TileFactory {
-    Tile createTile(boolean isBomb, int adjacentBombs);
+public class TileFactory {
+    public Tile createTile(boolean isBomb)
+    {
+        if(isBomb)
+        {
+            return new BombTile();
+        }
+        else
+        {
+            return new EmptyTile();
+        }
+    }
 }
