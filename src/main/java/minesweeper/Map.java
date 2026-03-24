@@ -1,11 +1,15 @@
 package minesweeper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Map
 {
     private final int rows;
     private final int cols;
     private final Tile[][] tiles;
     private final AdjacencyPattern adjacencyPattern;
+    private final List<TilesObserver> observers = new ArrayList<>();
 
     public Map(int rows, int cols, Tile[][] tiles, AdjacencyPattern adjacencyPattern){
         this.rows = rows;
@@ -33,7 +37,22 @@ public class Map
         return adjacencyPattern;
     }
 
+    //observers
+    public void addObserver(TilesObserver observer) {
+        observers.add(observer);
+    }
 
+    public void removeObserver(TilesObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyGameWon(){
+        for (TilesObserver observer : observers){
+            observer.onGameWon();
+        }
+    }
+
+    //need to implement notifyObservers & more
 
     public static class MapBuilder
     {
