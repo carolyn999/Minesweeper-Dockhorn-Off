@@ -9,7 +9,7 @@ public class MapTest {
         //successfully creates a map
         TileFactory tileFactory = new TileFactory();
 
-        Map map = Map.getBuilder(tileFactory).rows(3).cols(3).adjacencyPattern(new AdjacencyPattern.NormalAdjacencyPattern()).build();
+        Map map = Map.getBuilder(tileFactory).rows(3).cols(3).useAdjacencyPattern("Normal").build();
 
         assertNotNull(map);
         assertEquals(3, map.getRows());

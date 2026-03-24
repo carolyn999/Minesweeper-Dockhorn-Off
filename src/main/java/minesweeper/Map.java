@@ -2,6 +2,7 @@ package minesweeper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Map
 {
@@ -18,7 +19,10 @@ public class Map
         this.adjacencyPattern = adjacencyPattern;
     }
 
+    private Map()
+    {
 
+    }
 
     public static MapBuilder getBuilder(TileFactory tileFactory)
     {
@@ -50,6 +54,7 @@ public class Map
 
     public static class MapBuilder
     {
+        private Map map;
         private final TileFactory tileFactory;
         private int rows;
         private int cols;
@@ -57,7 +62,24 @@ public class Map
 
         public MapBuilder(TileFactory tileFactory)
         {
+            this.map = new Map();
             this.tileFactory = tileFactory;
+        }
+
+        public MapBuilder useAdjacencyPattern(String adjacencyPattern)
+        {
+            if(Objects.equals(adjacencyPattern, "Fibonacci"))
+            {
+                this.adjacencyPattern = new FibonacciAdjacency(map);
+            }
+            else if (Objects.equals(adjacencyPattern, "Knight"))
+            {
+                this.adjacencyPattern = new KnightAdjacency(map);
+            }
+            else
+            {
+                this.adjacencyPattern = new NormalAdjacency(map);
+            }
         }
 
         public MapBuilder rows(int rows){
