@@ -23,6 +23,6 @@ Minesweeper project for object-oriented programming.
   - Bomb
   - Flag (Marker placed by the user on a tile to indicate that it is suspected to be a bomb)
   - Number (Number of tiles considered adjacent under the current adjacency pattern)
-- Adjacency Patterns (Interface)
+- Adjacency Patterns 
   - Modes: Normal, Knight, Fibonacci
 
