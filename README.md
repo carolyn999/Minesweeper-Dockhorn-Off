@@ -27,14 +27,3 @@ Minesweeper project for object-oriented programming.
 - Adjacency Patterns (Interface)
   - Modes: Normal, Knight, Fibonacci
 
-
-At least 3 design patterns are clearly identified with a written explanation of where and how each will be used in the architecture. -- 3 points
-    
-Foundational classes and interfaces are designed and implemented, with real logic beginning to take shape — not just empty stubs or boilerplate. -- 3 points
-   
-Code demonstrates core OO principles: coding to abstractions, at least one example of polymorphism, and dependency injection where applicable. -- 2 points
-    
-At least 5 meaningful test cases have been designed. -- 2 poin
-
-
-
