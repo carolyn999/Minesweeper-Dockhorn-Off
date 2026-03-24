@@ -18,7 +18,9 @@ Minesweeper project for object-oriented programming.
 
 - Minesweeper
 - Map
-- Tiles 
+- Tile
+- TileFactory
+- TileObserver
 - Subclasses of Tile:
   - BombTile
   - FlagTile (Marker placed by the user on a tile to indicate that it is suspected to be a bomb)
