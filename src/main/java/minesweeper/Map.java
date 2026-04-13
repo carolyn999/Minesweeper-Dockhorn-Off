@@ -64,6 +64,11 @@ public class Map
         notifyObservers();
     }
 
+    public void flagTile(int row, int col){
+        Tile tile = getTile(row, col);
+        tile.toggleFlag();
+        notifyObservers();
+    }
 
     //observers
     public void addObserver(TilesObserver observer) {
@@ -83,13 +88,28 @@ public class Map
 
     //need to implement notifyObservers & more
 
+    private void populateTileNumbers(){
+        for (int row = 0; row < rows; row++){
+            for (int col = 0; col < cols; col++){
+                Tile tile = tiles[row][col];
+                if (!tile.isBomb()){
+                    int count = adjacencyPattern.countAdjacentBombTiles(tile);
+                    tile.setTileNumber(count);
+                }
+            }
+        }
+    }
+
     public static class MapBuilder
     {
         private Map map;
         private final TileFactory tileFactory;
         private int rows;
         private int cols;
+        private String adjacencyPatternName = "Normal";
         private AdjacencyPattern adjacencyPattern;
+        private final List<int[]> bombLocations = new ArrayList<>();
+
 
         public MapBuilder(TileFactory tileFactory)
         {
@@ -97,21 +117,23 @@ public class Map
             this.tileFactory = tileFactory;
         }
 
-        public MapBuilder useAdjacencyPattern(String adjacencyPattern)
-        {
-            if(Objects.equals(adjacencyPattern, "Fibonacci"))
-            {
-                this.adjacencyPattern = new FibonacciAdjacency(map);
-            }
-            else if (Objects.equals(adjacencyPattern, "Knight"))
-            {
-                this.adjacencyPattern = new KnightAdjacency(map);
-            }
-            else
-            {
-                this.adjacencyPattern = new NormalAdjacency(map);
-            }
+        public MapBuilder useAdjacencyPattern(String adjacencyPattern) {
+            this.adjacencyPatternName = adjacencyPattern;
+            return this;
         }
+//            if(Objects.equals(adjacencyPattern, "Fibonacci"))
+//            {
+//                this.adjacencyPattern = new FibonacciAdjacency(map);
+//            }
+//            else if (Objects.equals(adjacencyPattern, "Knight"))
+//            {
+//                this.adjacencyPattern = new KnightAdjacency(map);
+//            }
+//            else
+//            {
+//                this.adjacencyPattern = new NormalAdjacency(map);
+//            }
+//        }
 
         public MapBuilder rows(int rows){
             this.rows = rows;
@@ -121,6 +143,25 @@ public class Map
             this.cols = cols;
             return this;
         }
+
+        public MapBuilder create3x3Grid(){
+            this.rows = 3;
+            this.cols = 3;
+            return this;
+        }
+
+        public MapBuilder createSquareGrid(int size){
+            this.rows = size;
+            this.cols = size;
+            return this;
+        }
+
+        public MapBuilder placeBomb(int row, int col){
+            bombLocations.add(new int[]{row,col});
+            return this;
+        }
+
+
         public MapBuilder adjacencyPattern(AdjacencyPattern adjacencyPattern){
             this.adjacencyPattern = adjacencyPattern;
             return this;
