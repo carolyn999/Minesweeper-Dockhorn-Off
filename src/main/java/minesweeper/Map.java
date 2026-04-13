@@ -19,6 +19,8 @@ public class Map
         this.adjacencyPattern = adjacencyPattern;
     }
 
+
+
     private Map()
     {
 
@@ -41,6 +43,28 @@ public class Map
         return adjacencyPattern;
     }
 
+    private void setAdjacencyPattern(AdjacencyPattern adjacencyPattern){
+        this.adjacencyPattern = adjacencyPattern;
+    }
+
+    public Tile getTile(int row, int col){
+        if (!inBounds(row,col)){
+            throw new IllegalArgumentException("Tile position is out of bounds.");
+        }
+        return tiles[row][col];
+    }
+
+    public boolean inBounds(int row, int col){
+        return row >= 0 && row < rows && col >= 0 && col < cols;
+    }
+
+    public void revealTile(int row, int col){
+        Tile tile =  getTile(row, col);
+        tile.revealTile();
+        notifyObservers();
+    }
+
+
     //observers
     public void addObserver(TilesObserver observer) {
         observers.add(observer);
@@ -49,6 +73,13 @@ public class Map
     public void removeObserver(TilesObserver observer) {
         observers.remove(observer);
     }
+
+    private void notifyObservers(){
+        for (TilesObserver observer : observers){
+            observer.update();
+        }
+    }
+
 
     //need to implement notifyObservers & more
 

@@ -10,7 +10,24 @@ public class NormalAdjacency extends AdjacencyPattern
     @Override
     public int countAdjacentBombTiles(Tile tile)
     {
+        int adjacentBombCount = 0;
+        int currentRow = tile.getRow();
+        int currentColumn = tile.getColumn();
+
+        for (int rowOffset = -1; rowOffset <= 1; rowOffset++){
+            for (int columnOffset = -1; columnOffset <= 1; columnOffset++){
+                if (rowOffset == 0 && columnOffset == 0){
+                    continue;
+                }
+                int neighborRow = currentRow + rowOffset;
+                int neighborColumn = currentColumn + columnOffset;
+
+                if (getMap().inBounds(neighborRow, neighborColumn) && getMap().getTile(neighborRow, neighborColumn).isBomb()){
+                    adjacentBombCount++;
+                }
+            }
+        }
         // Replace with logic to count neighboring tiles containing bombs as adjacent
-        return 0;
+        return adjacentBombCount;
     }
 }

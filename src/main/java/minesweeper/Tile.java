@@ -4,6 +4,8 @@ public abstract class Tile{
         private boolean revealedTile;
         private boolean flaggedTile;
         private int tileNumber;
+        private int row;
+        private int col;
 
         // Maybe use strategy pattern instead of inheritance to show numbers when the tile is revealed?
         public boolean isRevealedTile(){
@@ -20,9 +22,30 @@ public abstract class Tile{
             }
         }
 
+        public void toggleFlag(){
+            if (!revealedTile){
+                flaggedTile = !flaggedTile;
+            }
+        }
+
+
+
         protected void setTileNumber(int adjacentBombs)
         {
             this.tileNumber = adjacentBombs;
+        }
+
+        void setPosition(int row, int col){
+            this.row = row;
+            this.col = col;
+        }
+
+        public int getRow(){
+            return row;
+        }
+
+        public int getColumn(){
+            return col;
         }
 
         public boolean isBomb()
