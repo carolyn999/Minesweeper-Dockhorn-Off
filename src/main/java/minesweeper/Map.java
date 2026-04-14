@@ -6,18 +6,21 @@ import java.util.Objects;
 
 public class Map
 {
-    private final int rows;
-    private final int cols;
-    private final Tile[][] tiles;
-    private final AdjacencyPattern adjacencyPattern;
-    private final List<TilesObserver> observers = new ArrayList<>();
+    private int rows;
+    private int cols;
+    private Tile[][] tiles;
+    private AdjacencyPattern adjacencyPattern;
+    // There is a note below on why observer stuff should not be here.
+    //private final List<TilesObserver> observers = new ArrayList<>();
 
-    private Map(int rows, int cols, Tile[][] tiles, AdjacencyPattern adjacencyPattern){
+    // Suggestion: have builder use the empty constructor
+    // Otherwise, why would we need a builder?
+    /*private Map(int rows, int cols, Tile[][] tiles, AdjacencyPattern adjacencyPattern){
         this.rows = rows;
         this.cols = cols;
         this.tiles = tiles;
         this.adjacencyPattern = adjacencyPattern;
-    }
+    }*/
 
 
 
@@ -61,17 +64,19 @@ public class Map
     public void revealTile(int row, int col){
         Tile tile =  getTile(row, col);
         tile.revealTile();
-        notifyObservers();
+        //notifyObservers();
     }
 
     public void flagTile(int row, int col){
         Tile tile = getTile(row, col);
         tile.toggleFlag();
-        notifyObservers();
+        //notifyObservers();
     }
 
+    // This should not be in map
+    // unless you create some kind of observable interface for map to implement
     //observers
-    public void addObserver(TilesObserver observer) {
+    /*public void addObserver(TilesObserver observer) {
         observers.add(observer);
     }
 
@@ -86,7 +91,7 @@ public class Map
     }
 
 
-    //need to implement notifyObservers & more
+    //need to implement notifyObservers & more*/
 
     private void populateTileNumbers(){
         for (int row = 0; row < rows; row++){
@@ -106,7 +111,7 @@ public class Map
         private final TileFactory tileFactory;
         private int rows;
         private int cols;
-        private String adjacencyPatternName = "Normal";
+        //private String adjacencyPatternName = "Normal";
         private AdjacencyPattern adjacencyPattern;
         private final List<int[]> bombLocations = new ArrayList<>();
 
@@ -118,28 +123,28 @@ public class Map
         }
 
         public MapBuilder useAdjacencyPattern(String adjacencyPattern) {
-            this.adjacencyPatternName = adjacencyPattern;
+            // Why replace my working code with two sources of truth?
+            // And a chance of never setting the actual object?
+            if(Objects.equals(adjacencyPattern, "Fibonacci"))
+            {
+                this.adjacencyPattern = new FibonacciAdjacency(map);
+            }
+            else if (Objects.equals(adjacencyPattern, "Knight"))
+            {
+                this.adjacencyPattern = new KnightAdjacency(map);
+            }
+            else
+            {
+                this.adjacencyPattern = new NormalAdjacency(map);
+            }
             return this;
         }
-//            if(Objects.equals(adjacencyPattern, "Fibonacci"))
-//            {
-//                this.adjacencyPattern = new FibonacciAdjacency(map);
-//            }
-//            else if (Objects.equals(adjacencyPattern, "Knight"))
-//            {
-//                this.adjacencyPattern = new KnightAdjacency(map);
-//            }
-//            else
-//            {
-//                this.adjacencyPattern = new NormalAdjacency(map);
-//            }
-//        }
 
-        public MapBuilder rows(int rows){
+        public MapBuilder setRows(int rows){
             this.rows = rows;
             return this;
         }
-        public MapBuilder cols(int cols){
+        public MapBuilder setCols(int cols){
             this.cols = cols;
             return this;
         }
@@ -161,14 +166,41 @@ public class Map
             return this;
         }
 
+        // The way this is currently set up, this method would never be usable.
+        //public MapBuilder useAdjacencyPattern(AdjacencyPattern adjacencyPattern){
+        //    this.adjacencyPattern = adjacencyPattern;
+        //    return this;
+        //}
 
-        public MapBuilder adjacencyPattern(AdjacencyPattern adjacencyPattern){
-            this.adjacencyPattern = adjacencyPattern;
-            return this;
-        }
         public Map build(){
-            Tile[][] tiles = new Tile[rows][cols];
-            return new Map(rows, cols, tiles, adjacencyPattern);
+
+            if(rows<=0)
+            {
+                // Should set up a logger and have it warn about a default being set
+                rows= 3;
+            }
+
+            if(cols<=0)
+            {
+                // Same as above about logger/warning.
+                cols=3;
+            }
+
+            if(adjacencyPattern==null)
+            {
+                // Again about logger/warning.
+                this.adjacencyPattern = new NormalAdjacency(map);
+            }
+
+            // Should add a method to place bombs randomly
+            // And make sure there are bombs before the map is returned.
+
+            map.rows = this.rows;
+            map.cols = this.cols;
+            map.tiles = new Tile[rows][cols];
+            map.adjacencyPattern = this.adjacencyPattern;
+
+            return this.map;
         }
     }
 }
