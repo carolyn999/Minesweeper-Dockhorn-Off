@@ -11,8 +11,9 @@ public class NormalAdjacency extends AdjacencyPattern
     public int countAdjacentBombTiles(Tile tile)
     {
         int adjacentBombCount = 0;
-        int currentRow = tile.getRow();
-        int currentColumn = tile.getColumn();
+        int[] tileLocation = getMap().getTileLocation(tile);
+        int currentRow = tileLocation[0];
+        int currentColumn = tileLocation[1];
 
         for (int rowOffset = -1; rowOffset <= 1; rowOffset++){
             for (int columnOffset = -1; columnOffset <= 1; columnOffset++){
