@@ -57,6 +57,21 @@ public class Map
         return tiles[row][col];
     }
 
+    public int[] getTileLocation(Tile tile)
+    {
+        for(int row=0;row<rows;row++)
+        {
+            for(int col=0;col<cols;col++)
+            {
+                if(tiles[row][col]==tile)
+                {
+                    return new int[]{row,col};
+                }
+            }
+        }
+        throw new IllegalArgumentException("Tile not found in map.");
+    }
+
     public boolean inBounds(int row, int col){
         return row >= 0 && row < rows && col >= 0 && col < cols;
     }
@@ -197,8 +212,23 @@ public class Map
 
             map.rows = this.rows;
             map.cols = this.cols;
-            map.tiles = new Tile[rows][cols];
+            Tile[][] tiles = new Tile[rows][cols];
+            for(int row=0;row<rows;row++)
+            {
+                for(int col=0;col<cols;col++)
+                {
+                    tiles[row][col] = tileFactory.createTile(false);
+                }
+            }
+
+            for(int[] bombLocation:bombLocations)
+            {
+                tiles[bombLocation[0]][bombLocation[1]] = tileFactory.createTile(true);
+            }
+
+            map.tiles = tiles;
             map.adjacencyPattern = this.adjacencyPattern;
+            map.populateTileNumbers();
 
             return this.map;
         }
