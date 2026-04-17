@@ -1,4 +1,5 @@
 package minesweeper;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,10 +36,15 @@ public class MinesweeperTest {
         map.revealTile(2, 0); map.revealTile(2, 1); map.revealTile(2, 2);
 
         Minesweeper minesweeper = new Minesweeper(map);
-        minesweeper.playGame();
 
+        assertTrue(minesweeper.isOver());
         assertTrue(minesweeper.isWon());
-        assertFalse(minesweeper.isOver());
+        // This is not a good test for playGame, as it should run a loop to play the game
+        // However, it is a good test for the win condition.
+        //minesweeper.playGame();
+        // Does not make sense for the game to not be over if it is won.
+        //assertTrue(minesweeper.isWon());
+        //assertFalse(minesweeper.isOver());
     }
 
     @Test
@@ -53,7 +59,8 @@ public class MinesweeperTest {
         map.revealTile(1, 1); //reveal bomb
 
         Minesweeper minesweeper = new Minesweeper(map);
-        minesweeper.playGame();
+        // Not needed here, since playGame should run a loop for actually playing the game.
+        //minesweeper.playGame();
 
         assertTrue(minesweeper.isOver());
         assertFalse(minesweeper.isWon());
@@ -71,9 +78,22 @@ public class MinesweeperTest {
         map.revealTile(1, 1); //reveal one safe tile, others still hidden
 
         Minesweeper minesweeper = new Minesweeper(map);
-        minesweeper.playGame();
+        // Once playGame is properly implemented, this line would break this test.
+        //minesweeper.playGame();
 
         assertFalse(minesweeper.isWon());
         assertFalse(minesweeper.isOver());
     }
+
+    // Currently commented out, as this may end up needing to be a UI test
+    /*@Test
+    public void testGame()
+    {
+        // Pseudocode:
+        // Make a map
+        // Make game
+        // call playGame()
+        // assert that game is over
+    }
+    */
 }

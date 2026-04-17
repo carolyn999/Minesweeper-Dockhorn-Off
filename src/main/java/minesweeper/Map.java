@@ -88,6 +88,34 @@ public class Map
         //notifyObservers();
     }
 
+    public boolean hasRevealedBomb()
+    {
+        // Moved (and modified) from Minesweeper
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                Tile tile = getTile(row, col);
+                if (tile.isBomb() && tile.isRevealedTile()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean allSafeTilesRevealed()
+    {
+        // Moved (and modified) from Minesweeper
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                Tile tile = getTile(row, col);
+                if (!tile.isBomb() && !tile.isRevealedTile()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     // This should not be in map
     // unless you create some kind of observable interface for map to implement
     //observers

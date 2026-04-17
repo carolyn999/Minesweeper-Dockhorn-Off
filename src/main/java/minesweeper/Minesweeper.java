@@ -1,8 +1,6 @@
 package minesweeper;
 
 public class Minesweeper implements ITilesGame {
-    private boolean gameWon;
-    private boolean gameOver;
     private Map map;
 
     public Minesweeper(Map map)
@@ -22,40 +20,24 @@ public class Minesweeper implements ITilesGame {
 
     }
 
-    private void checkGameState() {
-        //check if any bomb is revealed first
-        for (int row = 0; row < map.getRows(); row++) {
-            for (int col = 0; col < map.getCols(); col++) {
-                Tile tile = map.getTile(row, col);
-                if (tile.isBomb() && tile.isRevealedTile()) {
-                    gameOver = true;
-                    return;
-                }
-            }
-        }
-        //check if all safe tiles are revealed second
-        for (int row = 0; row < map.getRows(); row++) {
-            for (int col = 0; col < map.getCols(); col++) {
-                Tile tile = map.getTile(row, col);
-                if (!tile.isBomb() && !tile.isRevealedTile()) {
-                    return;
-                }
-            }
-        }
-        gameWon = true;
-    }
-
     public void playGame()
     {
-        checkGameState();
+        /* Gameplay loop
+        while(!isOver())
+        {
+            // Maybe add a player class with this method to control user interaction
+            // and potentially have the possibility of computer player?
+            playTurn();
+        }
+        */
     }
 
     public boolean isOver()
     {
-        return gameOver;
+        return map.hasRevealedBomb()||map.allSafeTilesRevealed();
     }
 
     public boolean isWon(){
-        return gameWon;
+        return !map.hasRevealedBomb() && map.allSafeTilesRevealed();
     }
 }
