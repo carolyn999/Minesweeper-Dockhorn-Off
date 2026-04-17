@@ -17,6 +17,8 @@ public class MapTest {
         assertNotNull(map.getAdjacencyPattern());
 
     }
+
+    // Move tile toString tests out of MapTest
     @Test
     public void mapToStringTest() {
         Map map = Map.getBuilder(new TileFactory())
@@ -25,46 +27,6 @@ public class MapTest {
                 .build();
 
         assertEquals("|.|.|.|\n|.|.|.|\n|.|.|.|", map.toString());
-    }
-
-
-    @Test
-    public void unrevealedEmptyTileToStringTest() {
-        Tile tile = new EmptyTile();
-
-        assertEquals(".", tile.toString());
-    }
-
-    @Test
-    public void flaggedTileToStringTest() {
-        Tile tile = new EmptyTile();
-        tile.toggleFlag();
-
-        assertEquals("F", tile.toString());
-    }
-
-    @Test
-    public void revealedNumberTileToStringTest() {
-        Tile tile = new EmptyTile();
-        tile.setTileNumber(2);
-        tile.revealTile();
-
-        assertEquals("2", tile.toString());
-    }
-
-    @Test
-    public void unrevealedBombTileToStringTest() {
-        Tile tile = new BombTile();
-
-        assertEquals(".", tile.toString());
-    }
-
-    @Test
-    public void revealedBombTileToStringTest() {
-        Tile tile = new BombTile();
-        tile.revealTile();
-
-        assertEquals("B", tile.toString());
     }
 
     @Test
