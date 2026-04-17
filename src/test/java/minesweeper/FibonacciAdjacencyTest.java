@@ -24,6 +24,6 @@ public class FibonacciAdjacencyTest
                 .placeBomb(2,0)
                 .build();
 
-        assertEquals(4,map.getTile(2,1).getTileNumber());
+        assertEquals(4,map.getTile(2,2).getTileNumber());
     }
 }
