@@ -50,7 +50,7 @@ public abstract class Tile{
         @Override
         public String toString(){
             if (isFlaggedTile()){
-                return "Flagged";
+                return "F";
             }
             if (!isRevealedTile()){
                 return ".";

@@ -8,6 +8,6 @@ public class BombTile extends Tile {
 
     @Override
     protected String getRevealedDisplayValue(){
-        return "Bomb";
+        return "B";
     }
 }
