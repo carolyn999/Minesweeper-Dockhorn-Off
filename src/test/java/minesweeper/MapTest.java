@@ -17,5 +17,15 @@ public class MapTest {
         assertNotNull(map.getAdjacencyPattern());
 
     }
+    @Test
+    public void mapToStringTest() {
+        Map map = Map.getBuilder(new TileFactory())
+                .create3x3Grid()
+                .useAdjacencyPattern("Normal")
+                .build();
+
+        assertEquals("|.|.|.|\n|.|.|.|\n|.|.|.|", map.toString());
+    }
+
 
 }

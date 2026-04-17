@@ -5,4 +5,9 @@ public class BombTile extends Tile {
     public boolean isBomb(){
         return true;
     }
+
+    @Override
+    protected String getRevealedDisplayValue(){
+        return "Bomb";
+    }
 }

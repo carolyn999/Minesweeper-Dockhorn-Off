@@ -39,4 +39,23 @@ public abstract class Tile{
         public int  getTileNumber(){
             return tileNumber;
         }
+
+        //added this so tiles can inherit toString isFlaggedTile and the other thing
+        // so it only has to override the return value at the end.
+
+        protected String getRevealedDisplayValue() {
+            return String.valueOf(getTileNumber());
+        }
+
+        @Override
+        public String toString(){
+            if (isFlaggedTile()){
+                return "Flagged";
+            }
+            if (!isRevealedTile()){
+                return ".";
+            }
+            return getRevealedDisplayValue();
+            //return String.valueOf(getTileNumber());
+        }
 }

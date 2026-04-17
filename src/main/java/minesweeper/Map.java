@@ -120,6 +120,24 @@ public class Map
         }
     }
 
+    @Override
+    public String toString() {
+        StringBuilder mapString = new StringBuilder();
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                mapString.append("|").append(tiles[row][col]);
+            }
+            mapString.append("|");
+
+            if (row < rows - 1) {
+                mapString.append("\n");
+            }
+        }
+
+        return mapString.toString();
+    }
+
     public static class MapBuilder
     {
         private Map map;
