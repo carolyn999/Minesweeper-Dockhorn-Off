@@ -19,7 +19,7 @@ public class KnightAdjacency extends AdjacencyPattern
 
         for(int[] moveLocation:moveLocations)
         {
-            if(bombAtMoveLocation(moveLocation))
+            if(isBombAtLocation(moveLocation))
             {
                 bombCount++;
             }
@@ -49,10 +49,5 @@ public class KnightAdjacency extends AdjacencyPattern
         int[] rightDownMoveLocation = new int[]{tileLocation[0]+2,tileLocation[1]-1};
         moveLocations.add(rightDownMoveLocation);
         return moveLocations;
-    }
-
-    private boolean bombAtMoveLocation(int[] moveLocation)
-    {
-        return getMap().inBounds(moveLocation[0],moveLocation[1]) && getMap().getTile(moveLocation[0],moveLocation[1]).isBomb();
     }
 }

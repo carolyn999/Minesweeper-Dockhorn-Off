@@ -23,7 +23,7 @@ public class NormalAdjacency extends AdjacencyPattern
                 int neighborRow = currentRow + rowOffset;
                 int neighborColumn = currentColumn + columnOffset;
 
-                if (getMap().inBounds(neighborRow, neighborColumn) && getMap().getTile(neighborRow, neighborColumn).isBomb()){
+                if (isBombAtLocation(neighborRow, neighborColumn)){
                     adjacentBombCount++;
                 }
             }
