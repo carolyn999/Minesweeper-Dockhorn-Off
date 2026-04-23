@@ -2,6 +2,6 @@ package minesweeper;
 
 public interface ITilesGame
 {
-    void attach();
-    void detach();
+    void attach(TilesObserver observer);
+    void detach(TilesObserver observer);
 }
