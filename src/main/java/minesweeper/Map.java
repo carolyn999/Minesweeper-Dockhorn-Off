@@ -3,6 +3,7 @@ package minesweeper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class Map
 {
@@ -12,17 +13,6 @@ public class Map
     private AdjacencyPattern adjacencyPattern;
     // There is a note below on why observer stuff should not be here.
     //private final List<TilesObserver> observers = new ArrayList<>();
-
-    // Suggestion: have builder use the empty constructor
-    // Otherwise, why would we need a builder?
-    /*private Map(int rows, int cols, Tile[][] tiles, AdjacencyPattern adjacencyPattern){
-        this.rows = rows;
-        this.cols = cols;
-        this.tiles = tiles;
-        this.adjacencyPattern = adjacencyPattern;
-    }*/
-
-
 
     private Map()
     {
@@ -42,13 +32,15 @@ public class Map
         return cols;
     }
 
-    public AdjacencyPattern getAdjacencyPattern(){
-        return adjacencyPattern;
+    // Making this return a String with the adjacencyPattern name for better encapsulation.
+    public String getAdjacencyPatternName(){
+        return adjacencyPattern.getName();
     }
 
-    private void setAdjacencyPattern(AdjacencyPattern adjacencyPattern){
-        this.adjacencyPattern = adjacencyPattern;
-    }
+    // Removing unused code.
+    //private void setAdjacencyPattern(AdjacencyPattern adjacencyPattern){
+    //    this.adjacencyPattern = adjacencyPattern;
+    //}
 
     public Tile getTile(int row, int col){
         if (!inBounds(row,col)){
@@ -136,18 +128,6 @@ public class Map
 
     //need to implement notifyObservers & more*/
 
-    private void populateTileNumbers(){
-        for (int row = 0; row < rows; row++){
-            for (int col = 0; col < cols; col++){
-                Tile tile = tiles[row][col];
-                if (!tile.isBomb()){
-                    int count = adjacencyPattern.countAdjacentBombTiles(tile);
-                    tile.setTileNumber(count);
-                }
-            }
-        }
-    }
-
     @Override
     public String toString() {
         StringBuilder mapString = new StringBuilder();
@@ -168,14 +148,14 @@ public class Map
 
     public static class MapBuilder
     {
-        private Map map;
+        private final Map map;
         private final TileFactory tileFactory;
         private int rows;
         private int cols;
         //private String adjacencyPatternName = "Normal";
         private AdjacencyPattern adjacencyPattern;
         private final List<int[]> bombLocations = new ArrayList<>();
-
+        private static final Random rand = new Random();
 
         public MapBuilder(TileFactory tileFactory)
         {
@@ -184,8 +164,7 @@ public class Map
         }
 
         public MapBuilder useAdjacencyPattern(String adjacencyPattern) {
-            // Why replace my working code with two sources of truth?
-            // And a chance of never setting the actual object?
+            // Might be a good idea to do an adjacencyPattern factory to avoid using new.
             if(Objects.equals(adjacencyPattern, "Fibonacci"))
             {
                 this.adjacencyPattern = new FibonacciAdjacency(map);
@@ -223,15 +202,74 @@ public class Map
         }
 
         public MapBuilder placeBomb(int row, int col){
-            bombLocations.add(new int[]{row,col});
+            int[] bombLocation = new int[]{row,col};
+
+            // Avoid adding repeat locations
+            if(locationHasBomb(bombLocation))
+            {
+                // Could add warning here.
+                return this;
+            }
+
+            bombLocations.add(bombLocation);
             return this;
         }
 
-        // The way this is currently set up, this method would never be usable.
-        //public MapBuilder useAdjacencyPattern(AdjacencyPattern adjacencyPattern){
-        //    this.adjacencyPattern = adjacencyPattern;
-        //    return this;
-        //}
+        private boolean locationHasBomb(int[] location)
+        {
+            for(int[] bombLocation:bombLocations)
+            {
+                if(location[0]==bombLocation[0]&&location[1]==bombLocation[1])
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public MapBuilder placeBomb() {
+            int[] bombLocation = new int[]{rand.nextInt(rows), rand.nextInt(cols)};
+
+            // Return without doing anything if all locations are already bombs.
+            if (bombLocations.size() >= rows * cols)
+            {
+                // Should add warning here.
+                return this;
+            }
+
+            // Avoid adding repeat locations.
+            while(locationHasBomb(bombLocation))
+            {
+                bombLocation = new int[]{rand.nextInt(rows),rand.nextInt(cols)};
+            }
+
+            bombLocations.add(bombLocation);
+
+            return this;
+        }
+
+        public MapBuilder placeBombs(int numBombs)
+        {
+            for(int i=0;i<numBombs;i++)
+            {
+                placeBomb();
+            }
+
+            return this;
+        }
+
+        private void populateTileNumbers(){
+            for (int row = 0; row < rows; row++){
+                for (int col = 0; col < cols; col++){
+                    Tile tile = map.tiles[row][col];
+                    if (!tile.isBomb()){
+                        int count = adjacencyPattern.countAdjacentBombTiles(tile);
+                        tile.setTileNumber(count);
+                    }
+                }
+            }
+        }
 
         public Map build(){
 
@@ -253,9 +291,6 @@ public class Map
                 this.adjacencyPattern = new NormalAdjacency(map);
             }
 
-            // Should add a method to place bombs randomly
-            // And make sure there are bombs before the map is returned.
-
             map.rows = this.rows;
             map.cols = this.cols;
             Tile[][] tiles = new Tile[rows][cols];
@@ -269,12 +304,19 @@ public class Map
 
             for(int[] bombLocation:bombLocations)
             {
+                if(!map.inBounds(bombLocation[0],bombLocation[1]))
+                {
+                    // Should add warning if any bomb locations are skipped due to being out of bounds.
+                    continue;
+                }
                 tiles[bombLocation[0]][bombLocation[1]] = tileFactory.createTile(true);
             }
 
+            // Should make sure at least one bomb is placed in a valid location before the map is returned.
+
             map.tiles = tiles;
             map.adjacencyPattern = this.adjacencyPattern;
-            map.populateTileNumbers();
+            populateTileNumbers();
 
             return this.map;
         }
