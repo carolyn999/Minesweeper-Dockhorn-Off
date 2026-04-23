@@ -21,4 +21,5 @@ public abstract class AdjacencyPattern
     {
         return map.inBounds(row,col) && map.getTile(row,col).isBomb();
     }
+    public abstract String getName();
 }

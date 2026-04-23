@@ -28,6 +28,12 @@ public class KnightAdjacency extends AdjacencyPattern
         return bombCount;
     }
 
+    @Override
+    public String getName()
+    {
+        return "Knight Adjacency";
+    }
+
     private List<int[]> getMoveLocations(int[] tileLocation)
     {
         // Hardcoded due to the complex shape of knight moves.

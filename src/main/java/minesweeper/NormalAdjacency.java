@@ -31,4 +31,10 @@ public class NormalAdjacency extends AdjacencyPattern
         // Replace with logic to count neighboring tiles containing bombs as adjacent
         return adjacentBombCount;
     }
+
+    @Override
+    public String getName()
+    {
+        return "Normal Adjacency";
+    }
 }

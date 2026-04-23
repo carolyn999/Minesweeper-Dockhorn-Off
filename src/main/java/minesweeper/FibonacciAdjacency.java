@@ -11,6 +11,12 @@ public class FibonacciAdjacency extends AdjacencyPattern
     }
 
     @Override
+    public String getName()
+    {
+        return "Fibonacci Adjacency";
+    }
+
+    @Override
     public int countAdjacentBombTiles(Tile tile) {
         // This works, but could probably use more functional decomposition for readability
         // Use the map bounds to limit to a more reasonable set of fibonacci values without calculating exact limits from the tile.
