@@ -1,36 +1,23 @@
 package minesweeper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Minesweeper implements ITilesGame {
     private final Map map;
-    private final List<TilesObserver> observers;
 
     public Minesweeper(Map map)
     {
         this.map = map;
-        observers = new ArrayList<>();
     }
 
     @Override
     public void attach(TilesObserver observer)
     {
-        observers.add(observer);
+        EventBus.getInstance().attach(observer);
     }
 
     @Override
     public void detach(TilesObserver observer)
     {
-        observers.remove(observer);
-    }
-
-    private void notifyObservers(String event)
-    {
-        for(TilesObserver observer:observers)
-        {
-            observer.update(event);
-        }
+        EventBus.getInstance().detach(observer);
     }
 
     public void playGame()
