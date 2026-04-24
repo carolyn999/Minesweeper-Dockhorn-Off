@@ -28,10 +28,12 @@ public class TileTest {
         assertEquals(".", tile.toString());
     }
 
+    // Should use flag tile class instead of empty tile
     @Test
     public void flaggedTileToStringTest() {
-        Tile tile = new EmptyTile();
-        tile.toggleFlag();
+        Tile baseTile = new EmptyTile();
+        Tile tile = new FlagTile(baseTile);
+        //tile.toggleFlag();
 
         assertEquals("F", tile.toString());
     }

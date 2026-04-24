@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class Map
 {
+    private TileFactory tileFactory;
     private int rows;
     private int cols;
     private Tile[][] tiles;
@@ -69,8 +70,20 @@ public class Map
 
     public void flagTile(int row, int col){
         Tile tile = getTile(row, col);
-        tile.toggleFlag();
+        if(tile.isFlaggedTile())
+        {
+            replaceTile(row,col,tile.getBaseTile());
+        }
+        else if(!tile.isRevealedTile())
+        {
+            replaceTile(row,col,tileFactory.createFlagTile(tile));
+        }
         //notifyObservers();
+    }
+
+    private void replaceTile(int row, int col, Tile newTile)
+    {
+        tiles[row][col] = newTile;
     }
 
     public boolean hasRevealedBomb()
@@ -122,7 +135,6 @@ public class Map
     public static class MapBuilder
     {
         private final Map map;
-        private final TileFactory tileFactory;
         private int rows;
         private int cols;
         private AdjacencyPattern adjacencyPattern;
@@ -132,7 +144,7 @@ public class Map
         public MapBuilder(TileFactory tileFactory)
         {
             this.map = new Map();
-            this.tileFactory = tileFactory;
+            map.tileFactory = tileFactory;
         }
 
         public MapBuilder useAdjacencyPattern(String adjacencyPattern) {
@@ -270,7 +282,7 @@ public class Map
             {
                 for(int col=0;col<cols;col++)
                 {
-                    tiles[row][col] = tileFactory.createTile(false);
+                    tiles[row][col] = map.tileFactory.createTile(false);
                 }
             }
 
@@ -281,7 +293,7 @@ public class Map
                     // Should add warning if any bomb locations are skipped due to being out of bounds.
                     continue;
                 }
-                tiles[bombLocation[0]][bombLocation[1]] = tileFactory.createTile(true);
+                tiles[bombLocation[0]][bombLocation[1]] = map.tileFactory.createTile(true);
             }
 
             // Should make sure at least one bomb is placed in a valid location before the map is returned.

@@ -2,7 +2,6 @@ package minesweeper;
 
 public abstract class Tile{
         private boolean revealedTile;
-        private boolean flaggedTile;
         private int tileNumber;
 
         // Maybe use strategy pattern instead of inheritance to show numbers when the tile is revealed?
@@ -11,19 +10,11 @@ public abstract class Tile{
         }
 
         public boolean isFlaggedTile(){
-            return flaggedTile;
+            return false;
         }
 
         public void revealTile(){
-            if (!flaggedTile){
-                revealedTile = true;
-            }
-        }
-
-        public void toggleFlag(){
-            if (!revealedTile){
-                flaggedTile = !flaggedTile;
-            }
+            revealedTile = true;
         }
 
         protected void setTileNumber(int adjacentBombs)
@@ -40,6 +31,11 @@ public abstract class Tile{
             return tileNumber;
         }
 
+        protected Tile getBaseTile()
+        {
+            return this;
+        }
+
         //added this so tiles can inherit toString isFlaggedTile and the other thing
         // so it only has to override the return value at the end.
 
@@ -49,9 +45,6 @@ public abstract class Tile{
 
         @Override
         public String toString(){
-            if (isFlaggedTile()){
-                return "F";
-            }
             if (!isRevealedTile()){
                 return ".";
             }

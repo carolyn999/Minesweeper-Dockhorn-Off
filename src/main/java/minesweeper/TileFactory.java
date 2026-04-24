@@ -12,4 +12,9 @@ public class TileFactory {
             return new EmptyTile();
         }
     }
+
+    public Tile createFlagTile(Tile baseTile)
+    {
+        return new FlagTile(baseTile);
+    }
 }
