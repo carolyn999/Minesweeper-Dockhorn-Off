@@ -11,8 +11,6 @@ public class Map
     private int cols;
     private Tile[][] tiles;
     private AdjacencyPattern adjacencyPattern;
-    // There is a note below on why observer stuff should not be here.
-    //private final List<TilesObserver> observers = new ArrayList<>();
 
     private Map()
     {
@@ -36,11 +34,6 @@ public class Map
     public String getAdjacencyPatternName(){
         return adjacencyPattern.getName();
     }
-
-    // Removing unused code.
-    //private void setAdjacencyPattern(AdjacencyPattern adjacencyPattern){
-    //    this.adjacencyPattern = adjacencyPattern;
-    //}
 
     public Tile getTile(int row, int col){
         if (!inBounds(row,col)){
@@ -108,26 +101,6 @@ public class Map
         return true;
     }
 
-    // This should not be in map
-    // unless you create some kind of observable interface for map to implement
-    //observers
-    /*public void addObserver(TilesObserver observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(TilesObserver observer) {
-        observers.remove(observer);
-    }
-
-    private void notifyObservers(){
-        for (TilesObserver observer : observers){
-            observer.update();
-        }
-    }
-
-
-    //need to implement notifyObservers & more*/
-
     @Override
     public String toString() {
         StringBuilder mapString = new StringBuilder();
@@ -152,7 +125,6 @@ public class Map
         private final TileFactory tileFactory;
         private int rows;
         private int cols;
-        //private String adjacencyPatternName = "Normal";
         private AdjacencyPattern adjacencyPattern;
         private final List<int[]> bombLocations = new ArrayList<>();
         private static final Random rand = new Random();
