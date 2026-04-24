@@ -22,14 +22,34 @@ public class Minesweeper implements ITilesGame {
 
     public void playGame()
     {
-        /* Gameplay loop
-        while(!isOver())
+        Player player = new Player();
+        EventBus.getInstance().notifyObservers("Starting game:\n" + map);
+
+        while (!isOver())
         {
-            // Maybe add a player class with this method to control user interaction
-            // and potentially have the possibility of computer player?
-            playTurn();
+            PlayerAction action = player.getAction();
+
+            if (action == PlayerAction.QUIT)
+            {
+                EventBus.getInstance().notifyObservers("Game quit.");
+                return;
+            }
+
+            int row = player.getRow();
+            int col = player.getCol();
+
+            if (action == PlayerAction.REVEAL)
+            {
+                map.revealTile(row, col);
+
+                EventBus.getInstance().notifyObservers("Tile revealed at row " + row + ", col " + col + "\n" + map);
+            }
+            else if (action == PlayerAction.FLAG)
+            {
+                map.flagTile(row, col);
+                EventBus.getInstance().notifyObservers("Tile flagged/unflagged at row " + row + ", col " + col + "\n" + map);
+            }
         }
-        */
     }
 
     public boolean isOver()
