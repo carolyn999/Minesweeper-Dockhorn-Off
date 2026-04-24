@@ -7,7 +7,11 @@ public class BombTile extends Tile {
     }
 
     @Override
-    protected String getRevealedDisplayValue(){
+    public String toString(){
+        if(!isRevealedTile())
+        {
+            return ".";
+        }
         return "B";
     }
 }

@@ -1,26 +1,12 @@
 package minesweeper;
 
-public class FlagTile extends Tile
+public class FlagTile extends DecoratedTile
 {
     // Note: this implementation is set up to handle multiple decorators on the same tile
     // even though it should never be able to happen
-    private final Tile baseTile;
-
     public FlagTile(Tile baseTile)
     {
-        this.baseTile = baseTile;
-    }
-
-    @Override
-    public int getTileNumber()
-    {
-        return baseTile.getTileNumber();
-    }
-
-    @Override
-    protected Tile getBaseTile()
-    {
-        return baseTile.getBaseTile();
+        super(baseTile);
     }
 
     @Override

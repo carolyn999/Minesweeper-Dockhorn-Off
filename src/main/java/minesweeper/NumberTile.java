@@ -1,14 +1,14 @@
 package minesweeper;
 
-public class NumberTile extends Tile {
-    private final int adjacentBombs;
+public class NumberTile extends DecoratedTile {
 
-    public NumberTile(int adjacentBombs){
-        this.adjacentBombs = adjacentBombs;
+    public NumberTile(Tile baseTile){
+        super(baseTile);
     }
 
     @Override
-    public int getTileNumber(){
-        return adjacentBombs;
+    public String toString()
+    {
+        return String.valueOf(getBaseTile().getTileNumber());
     }
 }

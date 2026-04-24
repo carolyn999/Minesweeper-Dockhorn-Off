@@ -17,4 +17,8 @@ public class TileFactory {
     {
         return new FlagTile(baseTile);
     }
+
+    public Tile createNumberTile(Tile baseTile) {
+        return new NumberTile(baseTile);
+    }
 }

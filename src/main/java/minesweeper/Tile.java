@@ -38,17 +38,10 @@ public abstract class Tile{
 
         //added this so tiles can inherit toString isFlaggedTile and the other thing
         // so it only has to override the return value at the end.
-
-        protected String getRevealedDisplayValue() {
-            return String.valueOf(getTileNumber());
-        }
+        // Removed to divide responsibility among subclasses.
 
         @Override
         public String toString(){
-            if (!isRevealedTile()){
-                return ".";
-            }
-            return getRevealedDisplayValue();
-            //return String.valueOf(getTileNumber());
+            return ".";
         }
 }

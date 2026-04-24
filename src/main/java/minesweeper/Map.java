@@ -65,6 +65,10 @@ public class Map
     public void revealTile(int row, int col){
         Tile tile =  getTile(row, col);
         tile.revealTile();
+        if(!tile.isBomb())
+        {
+            replaceTile(row,col,tileFactory.createNumberTile(tile));
+        }
         //notifyObservers();
     }
 
