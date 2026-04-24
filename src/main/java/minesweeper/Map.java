@@ -63,6 +63,7 @@ public class Map
     }
 
     public void revealTile(int row, int col){
+        EventBus.getInstance().notifyObservers("Attempting to reveal tile at row " + row + ", col " + col + "\n" + this);
         Tile tile =  getTile(row, col);
         tile.revealTile();
         if(!tile.isBomb()&&!tile.isFlaggedTile())

@@ -14,7 +14,15 @@ public abstract class Tile{
         }
 
         public void revealTile(){
-            revealedTile = true;
+            if(isRevealedTile())
+            {
+                EventBus.getInstance().notifyObservers("Tile already revealed, cannot reveal again.");
+            }
+            else
+            {
+                revealedTile = true;
+                EventBus.getInstance().notifyObservers("Tile revealed successfully!");
+            }
         }
 
         protected void setTileNumber(int adjacentBombs)

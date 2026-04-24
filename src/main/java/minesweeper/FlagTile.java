@@ -14,6 +14,7 @@ public class FlagTile extends DecoratedTile
     {
         // Override to do nothing for now.
         // Could maybe add a logger message or something to say tile is flagged.
+        EventBus.getInstance().notifyObservers("Tile is flagged, cannot reveal until flag is removed.");
     }
 
     @Override

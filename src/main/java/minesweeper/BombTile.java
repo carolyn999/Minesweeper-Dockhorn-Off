@@ -7,6 +7,13 @@ public class BombTile extends Tile {
     }
 
     @Override
+    public void revealTile()
+    {
+        super.revealTile();
+        EventBus.getInstance().notifyObservers("Bomb revealed!");
+    }
+
+    @Override
     public String toString(){
         if(!isRevealedTile())
         {
