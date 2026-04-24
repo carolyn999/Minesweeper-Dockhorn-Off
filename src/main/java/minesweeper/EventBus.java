@@ -39,7 +39,7 @@ public class EventBus implements ITilesGame
     {
         for(TilesObserver observer:observers)
         {
-            observer.update(event);
+            observer.updateObservers(event);
         }
     }
 }
