@@ -31,7 +31,7 @@ public class Minesweeper implements ITilesGame {
 
             if (action == PlayerAction.QUIT)
             {
-                EventBus.getInstance().notifyObservers("Game quit.");
+                EventBus.getInstance().notifyObservers("Quit game.");
                 return;
             }
 

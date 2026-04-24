@@ -5,7 +5,7 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
-//
+
 //    @Test
 //    void testRevealCommandInput()
 //    {
@@ -168,7 +168,7 @@ public class PlayerTest {
     @Test
     void testInvalidActionThenValidAction()
     {
-        Scanner scanner = new Scanner("banana\nflag\n0\n2\n");
+        Scanner scanner = new Scanner("abcdefg\nflag\n0\n2\n");
         Player player = new Player(scanner);
         PlayerAction action = player.getAction();
 
