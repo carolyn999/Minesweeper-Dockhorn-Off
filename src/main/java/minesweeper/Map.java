@@ -71,7 +71,6 @@ public class Map
             replaceTile(row,col,tileFactory.createNumberTile(tile));
         }
         EventBus.getInstance().notifyObservers(this.toString());
-        //notifyObservers();
     }
 
     public void flagTile(int row, int col){
@@ -79,12 +78,17 @@ public class Map
         if(tile.isFlaggedTile())
         {
             replaceTile(row,col,tile.getBaseTile());
+            EventBus.getInstance().notifyObservers("Tile unflagged at row " + row + ", col " + col + "\n" + this);
         }
         else if(!tile.isRevealedTile())
         {
             replaceTile(row,col,tileFactory.createFlagTile(tile));
+            EventBus.getInstance().notifyObservers("Tile flagged at row " + row + ", col " + col + "\n" + this);
         }
-        //notifyObservers();
+        else
+        {
+            EventBus.getInstance().notifyObservers("Tile already revealed, cannot flag.");
+        }
     }
 
     private void replaceTile(int row, int col, Tile newTile)
