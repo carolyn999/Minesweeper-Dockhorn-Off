@@ -30,6 +30,7 @@ public class Minesweeper implements ITilesGame {
 
         while (!isOver())
         {
+            EventBus.getInstance().notifyObservers("Adjacency rule: "+map.getAdjacencyPatternName());
             PlayerAction action = player.getAction();
 
             if (action == PlayerAction.QUIT)
