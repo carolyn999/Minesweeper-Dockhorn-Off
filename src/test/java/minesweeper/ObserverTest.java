@@ -15,6 +15,8 @@ public class ObserverTest
         Minesweeper minesweeper = new Minesweeper(map);
         VisualMinesweeperObserver observer = new VisualMinesweeperObserver();
         minesweeper.attach(observer);
+        //Calling playGame() currently causes the test to fail - seems to be a problem with system.in not actually accepting input
+        //May need a static main somewhere to actually run the game with human input.
         minesweeper.playGame();
         minesweeper.detach(observer);
         //observer.updateObserver("Starter map");

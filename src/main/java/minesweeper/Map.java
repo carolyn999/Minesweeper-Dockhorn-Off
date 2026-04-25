@@ -70,6 +70,7 @@ public class Map
         {
             replaceTile(row,col,tileFactory.createNumberTile(tile));
         }
+        EventBus.getInstance().notifyObservers(this.toString());
         //notifyObservers();
     }
 
