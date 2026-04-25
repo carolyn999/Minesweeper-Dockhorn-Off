@@ -35,7 +35,7 @@ public class MinesweeperTest {
         map.revealTile(1, 0); map.revealTile(1, 1); map.revealTile(1, 2);
         map.revealTile(2, 0); map.revealTile(2, 1); map.revealTile(2, 2);
 
-        Minesweeper minesweeper = new Minesweeper(map);
+        Minesweeper minesweeper = new Minesweeper(map, new DoesNothingTestPlayer());
 
         assertTrue(minesweeper.isOver());
         assertTrue(minesweeper.isWon());
@@ -58,7 +58,7 @@ public class MinesweeperTest {
 
         map.revealTile(1, 1); //reveal bomb
 
-        Minesweeper minesweeper = new Minesweeper(map);
+        Minesweeper minesweeper = new Minesweeper(map, new DoesNothingTestPlayer());
         // Not needed here, since playGame should run a loop for actually playing the game.
         //minesweeper.playGame();
 
@@ -77,7 +77,7 @@ public class MinesweeperTest {
 
         map.revealTile(1, 1); //reveal one safe tile, others still hidden
 
-        Minesweeper minesweeper = new Minesweeper(map);
+        Minesweeper minesweeper = new Minesweeper(map,new DoesNothingTestPlayer());
         // Once playGame is properly implemented, this line would break this test.
         //minesweeper.playGame();
 

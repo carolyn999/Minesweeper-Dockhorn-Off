@@ -12,7 +12,7 @@ public class ObserverTest
                 .placeBombs(4)
                 .build();
 
-        Minesweeper minesweeper = new Minesweeper(map);
+        Minesweeper minesweeper = new Minesweeper(map, new DoesNothingTestPlayer());
         VisualMinesweeperObserver observer = new VisualMinesweeperObserver();
         minesweeper.attach(observer);
         //Calling playGame() currently causes the test to fail - seems to be a problem with system.in not actually accepting input
@@ -32,7 +32,7 @@ public class ObserverTest
                 .placeBomb(4, 1)
                 .build();
 
-        Minesweeper minesweeper = new Minesweeper(map);
+        Minesweeper minesweeper = new Minesweeper(map, new DoesNothingTestPlayer());
         VisualMinesweeperObserver observer = new VisualMinesweeperObserver();
 
         minesweeper.attach(observer);

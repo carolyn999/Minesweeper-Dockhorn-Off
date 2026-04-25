@@ -2,10 +2,12 @@ package minesweeper;
 
 public class Minesweeper implements ITilesGame {
     private final Map map;
+    private final Player player;
 
-    public Minesweeper(Map map)
+    public Minesweeper(Map map,Player player)
     {
         this.map = map;
+        this.player=player;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class Minesweeper implements ITilesGame {
     public void playGame()
     {
         // Should use dependency injection for the player.
-        Player player = new Player();
+        //Player player = new Player();
         EventBus.getInstance().notifyObservers("Starting game:\n" + map);
 
         while (!isOver())
