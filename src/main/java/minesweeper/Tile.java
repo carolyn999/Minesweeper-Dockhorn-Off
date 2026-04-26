@@ -4,7 +4,6 @@ public abstract class Tile{
         private boolean revealedTile;
         private int tileNumber;
 
-        // Maybe use strategy pattern instead of inheritance to show numbers when the tile is revealed?
         public boolean isRevealedTile(){
             return revealedTile;
         }
@@ -43,10 +42,6 @@ public abstract class Tile{
         {
             return this;
         }
-
-        //added this so tiles can inherit toString isFlaggedTile and the other thing
-        // so it only has to override the return value at the end.
-        // Removed to divide responsibility among subclasses.
 
         @Override
         public String toString(){

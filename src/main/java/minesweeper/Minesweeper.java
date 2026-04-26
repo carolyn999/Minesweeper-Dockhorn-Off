@@ -24,8 +24,6 @@ public class Minesweeper implements ITilesGame {
 
     public void playGame()
     {
-        // Should use dependency injection for the player.
-        //Player player = new Player();
         EventBus.getInstance().notifyObservers("Starting game:\n" + map);
 
         while (!isOver())
@@ -42,7 +40,6 @@ public class Minesweeper implements ITilesGame {
             int row = player.getRow();
             int col = player.getCol();
 
-
             if (!tileLocationIsValid(row, col))
             {
                 EventBus.getInstance().notifyObservers("Row " + row + ", col " + col + " is out of bounds.");
@@ -58,16 +55,15 @@ public class Minesweeper implements ITilesGame {
             if (action == PlayerAction.REVEAL)
             {
                 map.revealTile(row, col);
-                // Moving this to map/tile so the actual status of the attempted action based on tile can be sent
-                //EventBus.getInstance().notifyObservers("Tile revealed at row " + row + ", col " + col + "\n" + map);
             }
             else if (action == PlayerAction.FLAG)
             {
                 map.flagTile(row, col);
-                //EventBus.getInstance().notifyObservers("Tile flagged/unflagged at row " + row + ", col " + col + "\n" + map);
             }
         }
+
         EventBus.getInstance().notifyObservers("Game over.");
+
         if(isWon())
         {
             EventBus.getInstance().notifyObservers("You won!");

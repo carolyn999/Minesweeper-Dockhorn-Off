@@ -9,6 +9,7 @@ public class Map
 {
     static final int DEFAULT_MAP_ROWS = 3;
     static final int DEFAULT_MAP_COLS = 3;
+
     private TileFactory tileFactory;
     private int rows;
     private int cols;
@@ -33,7 +34,6 @@ public class Map
         return cols;
     }
 
-    // Making this return a String with the adjacencyPattern name for better encapsulation.
     public String getAdjacencyPatternName(){
         return adjacencyPattern.getName();
     }
@@ -100,7 +100,6 @@ public class Map
 
     public boolean hasRevealedBomb()
     {
-        // Moved (and modified) from Minesweeper
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 Tile tile = getTile(row, col);
@@ -114,7 +113,6 @@ public class Map
 
     public boolean allSafeTilesRevealed()
     {
-        // Moved (and modified) from Minesweeper
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 Tile tile = getTile(row, col);
@@ -177,6 +175,7 @@ public class Map
             map.rows = rows;
             return this;
         }
+
         public MapBuilder setCols(int cols){
             map.cols = cols;
             return this;
@@ -226,7 +225,6 @@ public class Map
             // Return without doing anything if all locations are already bombs.
             if (bombLocations.size() >= map.rows * map.cols)
             {
-                // Should add warning here.
                 return this;
             }
 
@@ -243,7 +241,7 @@ public class Map
 
         public MapBuilder placeBombs(int numBombs)
         {
-            for(int i=0;i<numBombs;i++)
+            for(int bombCount=0;bombCount<numBombs;bombCount++)
             {
                 placeBomb();
             }

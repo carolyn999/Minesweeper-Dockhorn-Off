@@ -2,6 +2,9 @@ package minesweeper;
 
 public abstract class DecoratedTile extends Tile
 {
+    // Note: this implementation is set up to handle multiple decorators on the same tile
+    // even though it should never be able to happen
+
     private final Tile baseTile;
 
     public DecoratedTile(Tile baseTile)

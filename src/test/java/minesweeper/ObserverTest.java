@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 public class ObserverTest
 {
+    // Note: the results of these tests are not easily checked with assert statements,
+    // so results must be verified by viewing the actual output in the terminal after they are run
+
     @Test
     public void visualizeMap() {
         Map map = Map.getBuilder(new TileFactory())
@@ -15,11 +18,8 @@ public class ObserverTest
         Minesweeper minesweeper = new Minesweeper(map, new DoesNothingTestPlayer());
         VisualMinesweeperObserver observer = new VisualMinesweeperObserver();
         minesweeper.attach(observer);
-        //Calling playGame() currently causes the test to fail - seems to be a problem with system.in not actually accepting input
-        //May need a static main somewhere to actually run the game with human input.
         minesweeper.playGame();
         minesweeper.detach(observer);
-        //observer.updateObserver("Starter map");
     }
 
     @Test
@@ -36,21 +36,16 @@ public class ObserverTest
         VisualMinesweeperObserver observer = new VisualMinesweeperObserver();
 
         minesweeper.attach(observer);
-        // If we do player as dependency injection, we could make computer run test players to do things for the tests
-        // For now, this should work without manually sending updates to the observer in the test.
-        //minesweeper.playGame();
-        map.revealTile(2, 2);
-        //observer.updateObserver("Revealed (2,2)");
 
+        // Reveal an empty tile (becomes number tile)
+        map.revealTile(2, 2);
+
+        // Flag a tile
         map.flagTile(0, 0);
-        //observer.updateObserver("Flagged (0,0)");
 
         //reveal a bomb
         map.revealTile(4, 1);
-        //observer.updateObserver("Revealed (4,1)");
 
         minesweeper.detach(observer);
     }
-
-
 }

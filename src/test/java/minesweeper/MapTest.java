@@ -15,7 +15,6 @@ public class MapTest {
         assertEquals(3, map.getRows());
         assertEquals(3, map.getCols());
         assertNotNull(map.getAdjacencyPatternName());
-
     }
 
     // Move tile toString tests out of MapTest

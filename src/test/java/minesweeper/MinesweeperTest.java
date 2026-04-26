@@ -5,22 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MinesweeperTest {
-//    @Test
-//    public void gameWin(){
-//        //game detects win and exits when all non-bomb tiles are revealed
-//        Map map = Map.getBuilder(new TileFactory())
-//                .useAdjacencyPattern("Knight")
-//                .create3x3Grid()
-//                .placeBomb(0,0)
-//                .placeBomb(0,2)
-//                .placeBomb(2,0)
-//                .build();
-//
-//        Minesweeper minesweeper = new Minesweeper(map);
-//        minesweeper.playGame();
-//        assertTrue(minesweeper.isOver());
-//    }
-
     @Test
     public void gameWinTest() {
         //all non-bomb tiles revealed = gameWon
@@ -39,12 +23,6 @@ public class MinesweeperTest {
 
         assertTrue(minesweeper.isOver());
         assertTrue(minesweeper.isWon());
-        // This is not a good test for playGame, as it should run a loop to play the game
-        // However, it is a good test for the win condition.
-        //minesweeper.playGame();
-        // Does not make sense for the game to not be over if it is won.
-        //assertTrue(minesweeper.isWon());
-        //assertFalse(minesweeper.isOver());
     }
 
     @Test
@@ -59,8 +37,6 @@ public class MinesweeperTest {
         map.revealTile(1, 1); //reveal bomb
 
         Minesweeper minesweeper = new Minesweeper(map, new DoesNothingTestPlayer());
-        // Not needed here, since playGame should run a loop for actually playing the game.
-        //minesweeper.playGame();
 
         assertTrue(minesweeper.isOver());
         assertFalse(minesweeper.isWon());
@@ -78,22 +54,8 @@ public class MinesweeperTest {
         map.revealTile(1, 1); //reveal one safe tile, others still hidden
 
         Minesweeper minesweeper = new Minesweeper(map,new DoesNothingTestPlayer());
-        // Once playGame is properly implemented, this line would break this test.
-        //minesweeper.playGame();
 
         assertFalse(minesweeper.isWon());
         assertFalse(minesweeper.isOver());
     }
-
-    // Currently commented out, as this may end up needing to be a UI test
-    /*@Test
-    public void testGame()
-    {
-        // Pseudocode:
-        // Make a map
-        // Make game
-        // call playGame()
-        // assert that game is over
-    }
-    */
 }
