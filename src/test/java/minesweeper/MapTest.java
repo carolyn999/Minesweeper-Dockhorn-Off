@@ -73,4 +73,25 @@ public class MapTest {
         assertTrue(map.allSafeTilesRevealed());
     }
 
+    @Test
+    public void testBuilderAlwaysProducesValidMap()
+    {
+        Map map = Map.getBuilder(new TileFactory()).build();
+        assertEquals(Map.DEFAULT_MAP_ROWS,map.getRows());
+        assertEquals(Map.DEFAULT_MAP_COLS,map.getCols());
+
+        assertTrue(map.getAdjacencyPatternName().contains("Normal"));
+
+        // Reveal all tiles in order to check that a bomb has been placed using the hasRevealedBomb method.
+        for(int row=0;row<3;row++)
+        {
+            for(int col=0;col<3;col++)
+            {
+                map.revealTile(row,col);
+            }
+        }
+
+        assertTrue(map.hasRevealedBomb());
+    }
+
 }

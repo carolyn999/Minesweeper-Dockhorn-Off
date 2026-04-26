@@ -7,6 +7,8 @@ import java.util.Random;
 
 public class Map
 {
+    static final int DEFAULT_MAP_ROWS = 3;
+    static final int DEFAULT_MAP_COLS = 3;
     private TileFactory tileFactory;
     private int rows;
     private int cols;
@@ -145,9 +147,6 @@ public class Map
     public static class MapBuilder
     {
         private final Map map;
-        private int rows;
-        private int cols;
-        private AdjacencyPattern adjacencyPattern;
         private final List<int[]> bombLocations = new ArrayList<>();
         private static final Random rand = new Random();
 
@@ -161,37 +160,37 @@ public class Map
             // Might be a good idea to do an adjacencyPattern factory to avoid using new.
             if(Objects.equals(adjacencyPattern, "Fibonacci"))
             {
-                this.adjacencyPattern = new FibonacciAdjacency(map);
+                map.adjacencyPattern = new FibonacciAdjacency(map);
             }
             else if (Objects.equals(adjacencyPattern, "Knight"))
             {
-                this.adjacencyPattern = new KnightAdjacency(map);
+                map.adjacencyPattern = new KnightAdjacency(map);
             }
             else
             {
-                this.adjacencyPattern = new NormalAdjacency(map);
+                map.adjacencyPattern = new NormalAdjacency(map);
             }
             return this;
         }
 
         public MapBuilder setRows(int rows){
-            this.rows = rows;
+            map.rows = rows;
             return this;
         }
         public MapBuilder setCols(int cols){
-            this.cols = cols;
+            map.cols = cols;
             return this;
         }
 
         public MapBuilder create3x3Grid(){
-            this.rows = 3;
-            this.cols = 3;
+            map.rows = 3;
+            map.cols = 3;
             return this;
         }
 
         public MapBuilder createSquareGrid(int size){
-            this.rows = size;
-            this.cols = size;
+            map.rows = size;
+            map.cols = size;
             return this;
         }
 
@@ -201,7 +200,6 @@ public class Map
             // Avoid adding repeat locations
             if(locationHasBomb(bombLocation))
             {
-                // Could add warning here.
                 return this;
             }
 
@@ -223,10 +221,10 @@ public class Map
         }
 
         public MapBuilder placeBomb() {
-            int[] bombLocation = new int[]{rand.nextInt(rows), rand.nextInt(cols)};
+            int[] bombLocation = new int[]{rand.nextInt(map.rows), rand.nextInt(map.cols)};
 
             // Return without doing anything if all locations are already bombs.
-            if (bombLocations.size() >= rows * cols)
+            if (bombLocations.size() >= map.rows * map.cols)
             {
                 // Should add warning here.
                 return this;
@@ -235,7 +233,7 @@ public class Map
             // Avoid adding repeat locations.
             while(locationHasBomb(bombLocation))
             {
-                bombLocation = new int[]{rand.nextInt(rows),rand.nextInt(cols)};
+                bombLocation = new int[]{rand.nextInt(map.rows),rand.nextInt(map.cols)};
             }
 
             bombLocations.add(bombLocation);
@@ -254,72 +252,76 @@ public class Map
         }
 
         private void populateTileNumbers(){
-            for (int row = 0; row < rows; row++){
-                for (int col = 0; col < cols; col++){
+            for (int row = 0; row < map.rows; row++){
+                for (int col = 0; col < map.cols; col++){
                     Tile tile = map.tiles[row][col];
                     if (!tile.isBomb()){
-                        int count = adjacencyPattern.countAdjacentBombTiles(tile);
+                        int count = map.adjacencyPattern.countAdjacentBombTiles(tile);
                         tile.setTileNumber(count);
                     }
                 }
             }
         }
 
-
-
-        public Map build(){
-            boolean hasAtLeastOneBombPlaced = false;
-
-            // Default to 3 rows if an invalid number of rows is set.
-            if(rows<=0)
+        private void createAndInitializeMapTiles()
+        {
+            map.tiles = new Tile[map.rows][map.cols];
+            for(int row=0;row<map.rows;row++)
             {
-                rows= 3;
-            }
-
-            // Default to 3 rows if an invalid number of rows is set.
-            if(cols<=0)
-            {
-                cols=3;
-            }
-
-            // Default to normal adjacency if no adjacency pattern is set
-            if(adjacencyPattern==null)
-            {
-                this.adjacencyPattern = new NormalAdjacency(map);
-            }
-
-            // Create tiles
-            map.rows = this.rows;
-            map.cols = this.cols;
-            Tile[][] tiles = new Tile[rows][cols];
-            for(int row=0;row<rows;row++)
-            {
-                for(int col=0;col<cols;col++)
+                for(int col=0;col<map.cols;col++)
                 {
-                    tiles[row][col] = map.tileFactory.createTile(false);
+                    map.tiles[row][col] = map.tileFactory.createTile(false);
                 }
             }
+        }
 
-            // Place bombs
+        private void createAndPlaceBombs()
+        {
+            boolean hasAtLeastOneBombPlaced = false;
             for(int[] bombLocation:bombLocations)
             {
+                // Skip location if location is out of bounds.
                 if(!map.inBounds(bombLocation[0],bombLocation[1]))
                 {
-                    // Should add warning if any bomb locations are skipped due to being out of bounds.
                     continue;
                 }
-                tiles[bombLocation[0]][bombLocation[1]] = map.tileFactory.createTile(true);
+                map.tiles[bombLocation[0]][bombLocation[1]] = map.tileFactory.createTile(true);
                 hasAtLeastOneBombPlaced = true;
             }
 
             // Make sure at least one bomb is placed in a valid location before the map is returned.
             if(!hasAtLeastOneBombPlaced)
             {
-                placeBomb();
+                map.tiles[rand.nextInt(map.rows)][rand.nextInt(map.cols)] = map.tileFactory.createTile(true);
+            }
+        }
+
+        private void verifyMapHasValidDimensions()
+        {
+            // Use a default if an invalid number of rows is set.
+            if(map.rows<=0)
+            {
+                map.rows= DEFAULT_MAP_ROWS;
             }
 
-            map.tiles = tiles;
-            map.adjacencyPattern = this.adjacencyPattern;
+            // Use a default if an invalid number of columns is set.
+            if(map.cols<=0)
+            {
+                map.cols=DEFAULT_MAP_COLS;
+            }
+        }
+
+        public Map build(){
+            verifyMapHasValidDimensions();
+
+            // Default to normal adjacency if no adjacency pattern is set
+            if(map.adjacencyPattern==null)
+            {
+                map.adjacencyPattern = new NormalAdjacency(map);
+            }
+
+            createAndInitializeMapTiles();
+            createAndPlaceBombs();
             populateTileNumbers();
 
             return this.map;
