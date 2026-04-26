@@ -82,10 +82,11 @@ Subclasses of AdjacencyPattern:
 ### `EventBus`
 Implemented as a singleton and used to notify observers when game events happen. Stores list of observers and notifies them when game state changes.
 
-###`TilesObserver`
+### `TilesObserver`
 Observer interface
-###`VisualMinesweeperObserver`
+### `VisualMinesweeperObserver`
 Prints game updates to terminal. Displays messages, revealed tiles, starting board, and more.
+
 # Foundational Classes
 
 - Minesweeper
