@@ -42,6 +42,19 @@ public class Minesweeper implements ITilesGame {
             int row = player.getRow();
             int col = player.getCol();
 
+
+            if (!tileLocationIsValid(row, col))
+            {
+                EventBus.getInstance().notifyObservers("Row " + row + ", col " + col + " is out of bounds.");
+                continue;
+            }
+
+            if (action == PlayerAction.REVEAL && tileAlreadyRevealed(row, col))
+            {
+                EventBus.getInstance().notifyObservers("Tile at row " + row + ", col " + col + " is already revealed.");
+                continue;
+            }
+
             if (action == PlayerAction.REVEAL)
             {
                 map.revealTile(row, col);
@@ -72,5 +85,16 @@ public class Minesweeper implements ITilesGame {
 
     public boolean isWon(){
         return !map.hasRevealedBomb() && map.allSafeTilesRevealed();
+    }
+
+    private boolean tileLocationIsValid(int row, int col)
+    {
+        return map.inBounds(row, col);
+    }
+
+    //added to prevent players from revealing same tile twice
+    private boolean tileAlreadyRevealed(int row, int col)
+    {
+        return map.getTile(row, col).isRevealedTile();
     }
 }
