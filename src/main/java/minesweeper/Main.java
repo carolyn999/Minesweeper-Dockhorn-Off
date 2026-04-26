@@ -13,11 +13,16 @@ public class Main {
         int numberOfBombs = chooseNumberOfBombs(scanner, gridSize);
         Player player = new Player();
 
-        minesweeper.Map map = Map.getBuilder(new TileFactory()).useAdjacencyPattern(adjacencyPattern).createSquareGrid(gridSize).placeBombs(numberOfBombs).build();
+        minesweeper.Map map = Map.getBuilder(new TileFactory())
+                .useAdjacencyPattern(adjacencyPattern)
+                .createSquareGrid(gridSize).placeBombs(numberOfBombs)
+                .build();
 
         Minesweeper game = new Minesweeper(map, player);
-        game.attach(new VisualMinesweeperObserver());
+        VisualMinesweeperObserver observer = new VisualMinesweeperObserver();
+        game.attach(observer);
         game.playGame();
+        game.detach(observer);
     }
 
     private static String chooseAdjacencyPattern(Scanner scanner)
