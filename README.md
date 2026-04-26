@@ -38,7 +38,10 @@ It also checks the conditions that determines if the game is over:
   - The Builder pattern is implemented in the `Map` class. It allows the map to be constructed in steps by setting the adjacency pattern, grid size, bomb locations and number of random bombs. As a result, the program doesn't need a large constructor with many parameters.  
 - Factory Pattern
   - The Factory pattern is implemented in the `TileFactory` class, and is used to create several different types of tiles. It creates number tiles, empty tiles, bomb tiles, and flag tiles. This allows tile creation logic to be organized and placed in one area in the program.
-
+- Singleton Pattern
+  - Implemented in `EventBus` to make sure there is only one shared EventBus instance for observer notifications.
+- Decorator Pattern
+  - Used for tiles in order to change their state at runtime. This allows tiles to change their behavior and is used for FlagTile and NumberTile. These subclasses extend DecoratedTile.
 ### `Player`
 The `Player` class handles user input; it asks the player for an action and to choose a row and column. It converts user-input into a `PlayerAction` enum. This keeps the gameplay loop cleaner since we don't have to pass unnecessary raw strings into the `Minesweeper` class.
 
@@ -79,6 +82,10 @@ Subclasses of AdjacencyPattern:
 ### `EventBus`
 Implemented as a singleton and used to notify observers when game events happen. Stores list of observers and notifies them when game state changes.
 
+###`TilesObserver`
+Observer interface
+###`VisualMinesweeperObserver`
+Prints game updates to terminal. Displays messages, revealed tiles, starting board, and more.
 # Foundational Classes
 
 - Minesweeper
