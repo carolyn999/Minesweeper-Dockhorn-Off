@@ -265,26 +265,30 @@ public class Map
             }
         }
 
-        public Map build(){
 
+
+        public Map build(){
+            boolean hasAtLeastOneBombPlaced = false;
+
+            // Default to 3 rows if an invalid number of rows is set.
             if(rows<=0)
             {
-                // Should set up a logger and have it warn about a default being set
                 rows= 3;
             }
 
+            // Default to 3 rows if an invalid number of rows is set.
             if(cols<=0)
             {
-                // Same as above about logger/warning.
                 cols=3;
             }
 
+            // Default to normal adjacency if no adjacency pattern is set
             if(adjacencyPattern==null)
             {
-                // Again about logger/warning.
                 this.adjacencyPattern = new NormalAdjacency(map);
             }
 
+            // Create tiles
             map.rows = this.rows;
             map.cols = this.cols;
             Tile[][] tiles = new Tile[rows][cols];
@@ -296,6 +300,7 @@ public class Map
                 }
             }
 
+            // Place bombs
             for(int[] bombLocation:bombLocations)
             {
                 if(!map.inBounds(bombLocation[0],bombLocation[1]))
@@ -304,9 +309,14 @@ public class Map
                     continue;
                 }
                 tiles[bombLocation[0]][bombLocation[1]] = map.tileFactory.createTile(true);
+                hasAtLeastOneBombPlaced = true;
             }
 
-            // Should make sure at least one bomb is placed in a valid location before the map is returned.
+            // Make sure at least one bomb is placed in a valid location before the map is returned.
+            if(!hasAtLeastOneBombPlaced)
+            {
+                placeBomb();
+            }
 
             map.tiles = tiles;
             map.adjacencyPattern = this.adjacencyPattern;
