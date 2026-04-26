@@ -3,7 +3,7 @@ Carolyn Dockhorn, Kristin Off
 
 This project is an object-oriented implementation of the game Minesweeper. The game allows the player to create a custom board, choose an adjacency pattern, and choose the amount of random bombs placed on the map. 
 
-The user is able to play through a terminal-based interface. The implementation uses several object-oriented patterns, including: Factory, Builder, and Observer.
+The user is able to play through a terminal-based interface. The implementation uses several object-oriented patterns, including: Factory, Builder, Observer, Singleton, and Decorator.
 
 # How the Game Works
 
