@@ -3,6 +3,7 @@ package minesweeper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class KnightAdjacencyTest
 {
@@ -18,5 +19,6 @@ public class KnightAdjacencyTest
                 .build();
 
         assertEquals(2,map.getTile(1,2).getTileNumber());
+        assertTrue(map.getAdjacencyPatternName().contains("Knight"));
     }
 }

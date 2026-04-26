@@ -24,6 +24,19 @@ public class TileTest {
     }
 
     @Test
+    public void flagTileTest()
+    {
+        // Flag prevents tile from being revealed
+        Tile baseTile = tileFactory.createTile(true);
+        Tile flagTile = tileFactory.createFlagTile(baseTile);
+
+        flagTile.revealTile();
+
+        assertFalse(flagTile.isRevealedTile());
+        assertFalse(baseTile.isRevealedTile());
+    }
+
+    @Test
     public void unrevealedEmptyTileToStringTest() {
         Tile tile = tileFactory.createTile(false);
 

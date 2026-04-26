@@ -3,6 +3,7 @@ package minesweeper;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FibonacciAdjacencyTest
 {
@@ -25,5 +26,6 @@ public class FibonacciAdjacencyTest
                 .build();
 
         assertEquals(4,map.getTile(2,2).getTileNumber());
+        assertTrue(map.getAdjacencyPatternName().contains("Fibonacci"));
     }
 }

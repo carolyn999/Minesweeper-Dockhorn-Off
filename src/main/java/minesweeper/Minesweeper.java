@@ -83,6 +83,9 @@ public class Minesweeper implements ITilesGame {
         return !map.hasRevealedBomb() && map.allSafeTilesRevealed();
     }
 
+    // Note: the two private helper methods below are only needed and used for UI,
+    // therefore do not have and should not need test coverage
+
     private boolean tileLocationIsValid(int row, int col)
     {
         return map.inBounds(row, col);
