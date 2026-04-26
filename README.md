@@ -56,6 +56,29 @@ The map is responsible for:
 
 It also has MapBuilder which is used to build maps.
 
+### `Tile`
+This class is the abstract base class for all tile types. `Tile` stores the number of adjacent bombs and whether the tile has been revealed. The default behavior for isBomb(), isFlaggedTile, and toString is also defined here.  
+
+Subclasses of Tile:
+- EmptyTile: A safe non-bomb tile
+- BombTile: A tile containing a bomb
+- FlagTile: A tile that is flagged
+- DecoratedTile: Abstract decorator class used to wrap other tiles
+- NumberTile: Decorated tile representing revealed number tile
+
+### `AdjacencyPattern`
+
+An abstract class that calculates how many bombs are adjacent to a tile depending on the pattern. Each pattern has different adjacency rules.
+
+Subclasses of AdjacencyPattern:
+
+- `NormalAdjacency` -> Standard Minesweeper rules. Counts bombs in the eight surrounding tiles. 
+- `KnightAdjacency` -> Counts bombs using the knight move from Chess. Only tiles that are reachable by a knight move are considered adjacent. 
+- `FibonacciAdjacency` -> Counts bombs at Fibonacci-number distances from the current tile.
+
+### `EventBus`
+Implemented as a singleton and used to notify observers when game events happen. Stores list of observers and notifies them when game state changes.
+
 # Foundational Classes
 
 - Minesweeper
